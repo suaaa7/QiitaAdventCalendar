@@ -1,11 +1,21 @@
-DROP_CALENDAR_TABLE = '''
-DROP TABLE IF EXISTS calenders;
+DROP_URL_TABLE = '''
+DROP TABLE IF EXISTS urls;
 '''
 
-CREATE_CALENDAR_TABLE = '''
-CREATE TABLE IF NOT EXISTS calendars (
-    id varchar(32),
-    calendar_name varchar(256)
+CREATE_URL_TABLE = '''
+CREATE TABLE IF NOT EXISTS urls (
+  year char(4),
+  url varchar(256)
 );
 '''
-
+INSERT_URL_TABLE = '''
+INSERT INTO urls (
+  year,
+  url
+)
+VALUES
+(
+  "{year}",
+  "{url}"
+);
+'''
