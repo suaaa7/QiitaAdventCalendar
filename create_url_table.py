@@ -8,10 +8,10 @@ def main():
 
     year_url_list_dic = scraping_calendar_url()
     for y, ul in year_url_list_dic.items():
-        for u in ul:
+        for i, u in enumerate(ul):
             query = INSERT_URL_TABLE.format(year=y, url=u)
-            print(query)
             cursor_execute(query)
+        print("year: {y}, count: {c}".format(y=str(y), c=str(i+1)))
 
 if __name__ == '__main__':
     main()

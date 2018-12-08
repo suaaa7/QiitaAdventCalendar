@@ -8,6 +8,7 @@ CREATE TABLE IF NOT EXISTS urls (
   url varchar(256)
 );
 '''
+
 INSERT_URL_TABLE = '''
 INSERT INTO urls (
   year,
@@ -19,3 +20,9 @@ VALUES
   "{url}"
 );
 '''
+
+SELECT_URL_TABLE = '''
+SELECT *
+FROM urls;
+'''
+
