@@ -1,5 +1,5 @@
 from cursor_execute import cursor_execute
-from queries.create_table import DROP_URL_TABLE, CREATE_URL_TABLE, INSERT_URL_TABLE
+from queries.url_table import DROP_URL_TABLE, CREATE_URL_TABLE, INSERT_URL_TABLE
 from scraping import scraping_calendar_url
 
 def main():
