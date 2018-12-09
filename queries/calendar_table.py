@@ -47,7 +47,7 @@ VALUES
 );
 '''
 
-SELECT_URL_TABLE = '''
+SELECT_CALENDAR_TABLE = '''
 SELECT *
 FROM calendars;
 '''
