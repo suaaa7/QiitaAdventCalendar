@@ -40,6 +40,10 @@ def scraping_calendar_detail():
         sleep(SLEEP_TIME)
 
         title = soup.find("title").contents[0].split(" Advent")[0]
+        info = soup.find_all("div", {"class": "adventCalendarSection_info"})
+        category = info[0].find("a").contents[0]
+        author = info[1].find("a").contents[1]
+
         parts = soup.find("div", {"title": "Participants"}).contents[1].replace(" ", "")
         likes = soup.find("div", {"title": "Likes"}).contents[1].replace(" ", "")
         subsc = soup.find("div", {"title": "Subscribers"}).contents[1].replace(" ", "")
@@ -52,7 +56,11 @@ def scraping_calendar_detail():
         actual_items = items - len(cancels)
 
         calendar_detail_list.append(
-            [y, u, title, int(parts), int(likes), int(subsc), items, actual_items]
+            [
+                y, u, title, category, author,
+                int(parts), int(likes), int(subsc), 
+                items, actual_items
+            ]
         )
 
     return calendar_detail_list

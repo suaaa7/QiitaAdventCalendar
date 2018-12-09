@@ -17,11 +17,13 @@ def main():
                     year = d[0],
                     url = d[1],
                     title = "title",
-                    parts = d[3],
-                    likes = d[4],
-                    subsc = d[5],
-                    items = d[6],
-                    actual_items = d[7]
+                    category = d[3],
+                    author = d[4],
+                    parts = d[5],
+                    likes = d[6],
+                    subsc = d[7],
+                    items = d[8],
+                    actual_items = d[9]
                 )
         cursor_execute(query)
 
