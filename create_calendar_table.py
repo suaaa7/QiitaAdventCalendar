@@ -7,10 +7,11 @@ from queries.calendar_table import (
 from scraping import scraping_calendar_detail
 
 def main():
+    calendar_detail_list = scraping_calendar_detail()
+
     _ = cursor_execute(DROP_CALENDAR_TABLE)
     _ = cursor_execute(CREATE_CALENDAR_TABLE)
 
-    calendar_detail_list = scraping_calendar_detail()
     for i, d in enumerate(calendar_detail_list):
         query = INSERT_CALENDAR_TABLE.format(
                     calendar_id = i+1,

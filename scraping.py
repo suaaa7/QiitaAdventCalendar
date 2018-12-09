@@ -8,7 +8,7 @@ QIITA_URL = "https://qiita.com"
 CALENDAR_LIST_URL = QIITA_URL + "/advent-calendar/{year}/calendars?page={page}"
 YEAR_LIST = [2015, 2016, 2017, 2018]
 MAX_PAGE = 50
-SLEEP_TIME = 2
+SLEEP_TIME = 5
 
 def scraping_calendar_url():
     year_url_list_dic = {}
@@ -41,8 +41,9 @@ def scraping_calendar_detail():
 
         title = soup.find("title").contents[0].split(" Advent")[0]
         info = soup.find_all("div", {"class": "adventCalendarSection_info"})
-        category = info[0].find("a").contents[0]
-        author = info[1].find("a").contents[1]
+        category = info[0].find("a").contents[0] if len(info) > 0 else "unknown"
+        info_a_contents = info[1].find("a").contents if len(info) > 1 else []
+        author = info_a_contents[1] if len(info_a_contents) > 1 else "unknown"
 
         parts = soup.find("div", {"title": "Participants"}).contents[1].replace(" ", "")
         likes = soup.find("div", {"title": "Likes"}).contents[1].replace(" ", "")
@@ -71,6 +72,8 @@ def main():
     #    print(y, len(ul))
 
     calendar_detail_list = scraping_calendar_detail()
+    for d in calendar_detail_list:
+        print(d)
 
 if __name__ == '__main__':
     main()
