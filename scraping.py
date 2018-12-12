@@ -8,7 +8,7 @@ QIITA_URL = "https://qiita.com"
 CALENDAR_LIST_URL = QIITA_URL + "/advent-calendar/{year}/calendars?page={page}"
 YEAR_LIST = [2015, 2016, 2017, 2018]
 MAX_PAGE = 50
-SLEEP_TIME = 5
+SLEEP_TIME = 3
 
 def scraping_calendar_url():
     year_url_list_dic = {}
@@ -39,30 +39,33 @@ def scraping_calendar_detail():
         soup = BeautifulSoup(html, "html.parser")
         sleep(SLEEP_TIME)
 
-        title = soup.find("title").contents[0].split(" Advent")[0]
-        info = soup.find_all("div", {"class": "adventCalendarSection_info"})
-        category = info[0].find("a").contents[0] if len(info) > 0 else "unknown"
-        info_a_contents = info[1].find("a").contents if len(info) > 1 else []
-        author = info_a_contents[1] if len(info_a_contents) > 1 else "unknown"
+        try:
+            title = soup.find("title").contents[0].split(" Advent")[0]
+            info = soup.find_all("div", {"class": "adventCalendarSection_info"})
+            category = info[0].find("a").contents[0] if len(info) > 0 else "unknown"
+            info_a_contents = info[1].find("a").contents if len(info) > 1 else []
+            author = info_a_contents[1] if len(info_a_contents) > 1 else "unknown"
 
-        parts = soup.find("div", {"title": "Participants"}).contents[1].replace(" ", "")
-        likes = soup.find("div", {"title": "Likes"}).contents[1].replace(" ", "")
-        subsc = soup.find("div", {"title": "Subscribers"}).contents[1].replace(" ", "")
+            parts = soup.find("div", {"title": "Participants"}).contents[1].replace(" ", "")
+            likes = soup.find("div", {"title": "Likes"}).contents[1].replace(" ", "")
+            subsc = soup.find("div", {"title": "Subscribers"}).contents[1].replace(" ", "")
 
-        blocks = soup.find_all("div", {"class": "adventCalendarItem"})
-        items = len(blocks)
+            blocks = soup.find_all("div", {"class": "adventCalendarItem"})
+            items = len(blocks)
 
-        cancel_title = "Overwritable because of past due"
-        cancels = ["items" for b in blocks if b.find("a", {"title": cancel_title})]
-        actual_items = items - len(cancels)
+            cancel_title = "Overwritable because of past due"
+            cancels = ["items" for b in blocks if b.find("a", {"title": cancel_title})]
+            actual_items = items - len(cancels)
 
-        calendar_detail_list.append(
-            [
-                y, u, title, category, author,
-                int(parts), int(likes), int(subsc), 
-                items, actual_items
-            ]
-        )
+            calendar_detail_list.append(
+                [
+                    y, u, title, category, author,
+                    int(parts), int(likes), int(subsc), 
+                    items, actual_items
+                ]
+            )
+        except:
+            print(u)
 
     return calendar_detail_list
 
